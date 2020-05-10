@@ -23,3 +23,10 @@ Step 1. Make this into a github repository.
 Step 2. Deploy to Digital Ocean.
 Step 3. Figure out domain stuff.
 Step 4. ieuler-server.
+
+
+docker stuff
+------------
+
+docker build . -t interactive-project-euler
+docker run -it --rm -p 5000:5000 -p 7681:7681 -v /var/run/docker.sock:/var/run/docker.sock interactive-project-euler
