@@ -1,0 +1,13 @@
+version: "3"
+services:
+  interactive-project-euler:
+    build: .
+    image: interactive-project-euler
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 5000:5000
+      - 7681:7681
+    entrypoint: ["gunicorn", "-b", "0.0.0.0:5000", "app:create_app()"]
+    environment:
+      - FLASK_ENV:development
