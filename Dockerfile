@@ -10,7 +10,8 @@ RUN apt-get update -y \
     && cmake .. \
     && make && make install \
     && cd ../.. \
-    && apt-get install docker.io -y
+    && apt-get install docker.io -y \
+    && apt-get install gunicorn -y
 
 COPY . /usr/src/app/
 
@@ -18,6 +19,6 @@ WORKDIR /usr/src/app
 
 RUN pip3 install --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org -r requirements.txt
 
-RUN export FLASK_ENV=development
+ARG FLASK_ENV=production
 
-ENTRYPOINT ["flask", "run", "-h", "0.0.0.0"]
+RUN export FLASK_ENV=${FLASK_ENV}
