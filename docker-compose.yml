@@ -1,13 +1,21 @@
 version: "3"
+
 services:
-  interactive-project-euler:
-    build: .
-    image: interactive-project-euler
+
+  ttyd:
+    build: ./ttyd/
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 5000:5000
-      - 7681:7681
-    entrypoint: ["gunicorn", "-b", "0.0.0.0:5000", "app:create_app()"]
     environment:
-      - FLASK_ENV:development
+      - DOCKER_HOST=tcp://socat:2375
+    ports:
+      - 8080:7681
+    entrypoint: ["/usr/bin/ttyd", "docker", "run", "-it", "--rm", "liamcryan/ieuler"]
+
+  socat:
+    image: bpack/socat
+    command: TCP4-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    expose:
+      - "2375"

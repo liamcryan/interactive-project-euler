@@ -12,6 +12,6 @@ Installation
     $ git clone https://github.com/liamcryan/interactive-project-euler.git
     $ docker-compose up -d
 
-Now play on http://127.0.0.1:5000.
+Now play on http://127.0.0.1:8080.
 
 See https://github.com/liamcryan/ieuler for more details on using the command line tool.

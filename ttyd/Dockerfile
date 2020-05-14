@@ -1,0 +1,12 @@
+FROM tsl0922/ttyd
+
+RUN apt-get update -y \
+    && apt-get upgrade -y \
+    && apt-get install docker.io -y
+
+RUN useradd -ms /bin/bash -d /usr/local/ttyd ttyd \
+    && chown -R ttyd: /usr/local/ttyd
+
+WORKDIR /usr/local/ttyd
+
+USER ttyd
