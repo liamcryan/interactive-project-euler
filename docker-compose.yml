@@ -2,6 +2,7 @@ version: "3"
 
 services:
   ieuler-server:
+    restart: always
     image: liamcryan/ieuler-server
     environment:
       - DB_HOST=mysql
@@ -10,6 +11,7 @@ services:
     command: ["wait-for-it", "mysql:3306", "--", "gunicorn", "-b", "0.0.0.0:2718", "app:create_app()"]
 
   mysql:
+    restart: always
     image: mysql
     env_file:
       - .mysql-env
@@ -17,19 +19,32 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
 
   ttyd:
-    build: ./ttyd/
+    restart: always
+    build: .
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - DOCKER_HOST=tcp://socat:2375
-    ports:
-      - 8080:7681
+#    ports:
+#      - 7681:7681
+    expose:
+      - 7681
     command: ["/usr/bin/ttyd", "docker", "run", "-it", "--rm", "--env", "IEULER_SERVER_HOST=ieuler-server", "--env", "IEULER_SERVER_PORT=2718", "--network", "interactive-project-euler_default", "liamcryan/ieuler"]
 
   socat:
+    restart: always
     image: bpack/socat
     command: TCP4-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     expose:
       - "2375"
+
+  nginx:
+    restart: always
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8000:80
+      - 4430:443
