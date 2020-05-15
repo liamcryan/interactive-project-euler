@@ -10,6 +10,7 @@ Installation
 ::
 
     $ git clone https://github.com/liamcryan/interactive-project-euler.git
+    $ echo "MYSQL_USER=someuser\nMYSQL_PASSWORD=somepass\nMYSQL_DATABASE=somedatabase" > .mysql-env
     $ docker-compose up -d
 
 Now play on http://127.0.0.1:8000.
