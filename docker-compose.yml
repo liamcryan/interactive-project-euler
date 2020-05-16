@@ -23,6 +23,8 @@ services:
     build: .
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+#      - /path/in/host/fullchain.pem:/path/in/container/fullchain.pem
+#      - /path/in/host/privkey.pem:/path/in/container/privkey.pem
     environment:
       - DOCKER_HOST=tcp://socat:2375
     expose:
@@ -44,5 +46,5 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - 8000:80
-      - 4430:443
+      - 80:80
+      - 443:443
