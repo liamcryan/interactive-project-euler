@@ -27,7 +27,7 @@ services:
       - DOCKER_HOST=tcp://socat:2375
     expose:
       - 7681
-    command: ["/usr/bin/ttyd", "docker", "run", "-it", "--rm", "--env", "IEULER_SERVER_HOST=ieuler-server", "--env", "IEULER_SERVER_PORT=2718", "--network", "interactive-project-euler_default", "liamcryan/ieuler"]
+    command: ["/usr/bin/ttyd", "-s", "SIGINT", "docker", "run", "-it", "--rm", "--env", "IEULER_SERVER_HOST=ieuler-server", "--env", "IEULER_SERVER_PORT=2718", "--network", "interactive-project-euler_default", "liamcryan/ieuler"]
 
   socat:
     restart: always
