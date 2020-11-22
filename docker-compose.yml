@@ -1,6 +1,31 @@
 version: "3"
 
 services:
+  app:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    expose:
+      - 5000
+    command: ["gunicorn", "-b", "0.0.0.0:5000", "app:create_app()"]
+    volumes:
+      - ./app:/usr/local/ipe/app
+
+  ttyd:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile-ttyd
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./ttyd.sh:/usr/local/ttyd/ttyd.sh
+    environment:
+      - DOCKER_HOST=tcp://socat:2375
+    expose:
+      - 7681
+    command: ["/usr/bin/ttyd", "-a", "./ttyd.sh"]
+
   ieuler-server:
     restart: always
     image: liamcryan/ieuler-server
@@ -18,17 +43,6 @@ services:
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
 
-  ttyd:
-    restart: always
-    build: .
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - DOCKER_HOST=tcp://socat:2375
-    expose:
-      - 7681
-    command: ["/usr/bin/ttyd", "docker", "run", "-it", "--rm", "--env", "IEULER_SERVER_HOST=ieuler-server", "--env", "IEULER_SERVER_PORT=2718", "--network", "interactive-project-euler_default", "liamcryan/ieuler"]
-
   socat:
     restart: always
     image: bpack/socat
@@ -45,7 +59,6 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       # - /path/in/host/fullchain.pem:/etc/nginx/fullchain.pem:ro
       # - /path/in/host/privkey.pem:/etc/nginx/privkey.pem:ro
-      - ./evie:/usr/share/nginx/html:ro
     ports:
       - 80:80
       - 443:443
