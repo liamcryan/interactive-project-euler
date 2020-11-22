@@ -1,267 +1,220 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<meta class="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>ieuler</title>
-	<!-- Don't forget to add your metadata here -->
-	<link rel='stylesheet' href='css/style.min.css' />
-	<style>
-		.navbar {
-		  background-color: #ed7309;
-		}
-		.navbar--extended {
-		  background-color: transparent;
-		}
-		.navbar--extended .navbar__inner {
-			height: 60px;
-			color: #ffffff;
-		}
-		.hero {
-		  background-image: url("./images/ilr.png");
-		}
-		.hero__overlay {
-		  opacity: 0.94;
-		 }
-		 .hero__overlay--gradient {
-  			background: linear-gradient(to right, #ed8709, #ed7309); //#6C63FF, #4641FF
-  		 }
-  		 .cta--reverse {
-  			background: linear-gradient(to left, #ed8709, #ed7309);
-  		 }
-  		 /* The Modal (background) */
-		.modal {
-		  display: none; /* Hidden by default */
-		  position: fixed; /* Stay in place */
-		  z-index: 1; /* Sit on top */
-		  padding-top: 100px; /* Location of the box */
-		  left: 0;
-		  top: 0;
-		  width: 100%; /* Full width */
-		  height: 100%; /* Full height */
-		  overflow: auto; /* Enable scroll if needed */
-		  background-color: rgb(0,0,0); /* Fallback color */
-		  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-		}
-
-		/* Modal Content */
-		.modal-content {
-		  background-color: #ed7309;
-		  opacity: 0.9;
-		  margin: auto;
-		  padding: 20px;
-		  border: 1px solid #888;
-		  width: 50%;
-		  min-width: 20em;
-		}
-
-		/* The Close Button */
-		.close {
-		  color: #828282;
-		  float: right;
-		  font-size: 28px;
-		  font-weight: bold;
-		}
-
-		.close:hover,
-		.close:focus {
-		  color: #000;
-		  text-decoration: none;
-		  cursor: pointer;
-		}
-	</style>
+    <meta class="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>ieuler</title>
+    <!-- Don't forget to add your metadata here -->
+    <link rel='stylesheet' href='{{ url_for("static", filename="evie/css/style.min.css") }}'/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}" />
+    <style>
+        .hero {
+          background-image: url("{{ url_for('static', filename='images/ilr.png') }}");
+        }
+    </style>
 </head>
 <body>
-	<!-- Hero(extended) navbar -->
-	<div class="navbar navbar--extended">
-		<nav class="nav__mobile"></nav>
-		<div class="container">
-			<div class="navbar__inner">
-				<a href="/" class="navbar__logo">ieuler</a>
+<!-- Hero(extended) navbar -->
+<div class="navbar navbar--extended">
+    <nav class="nav__mobile"></nav>
+    <div class="container">
+        <div class="navbar__inner">
+            <a href="/" class="navbar__logo">ieuler</a>
 
-			</div>
-		</div>
-	</div>
-	<!-- Hero unit -->
-	<div class="hero">
-		<div class="hero__overlay hero__overlay--gradient"></div>
-		<div class="hero__mask"></div>
-		<div class="hero__inner">
-			<div class="container">
-				<div class="hero__content">
-					<div class="hero__content__inner" id='navConverter'>
-						<h1 class="hero__title">ieuler</h1>
-						<p class="hero__text text-container text-container--center">
-							A command line experience designed for solving problems from Project Euler.
-						</p>
-						<a target="_blank" class="scroll button hero__button">Learn more</a>
-						<a href="/app" target="_blank" class="button button__accent">Go to ieuler</a>
-						<button class="button button__accent" id="ieuler-button">Go to ieuler</button>
-						<!-- The Modal -->
-						<div id="ieuler-modal" class="modal">
+        </div>
+    </div>
+</div>
+<!-- Hero unit -->
+<div class="hero">
+    <div class="hero__overlay hero__overlay--gradient"></div>
+    <div class="hero__mask"></div>
+    <div class="hero__inner">
+        <div class="container">
+            <div class="hero__content">
+                <div class="hero__content__inner" id='navConverter'>
+                    <h1 class="hero__title">ieuler</h1>
+                    <p class="hero__text text-container text-container--center">
+                        A command line experience designed for solving problems from Project Euler.
+                    </p>
+                    <a target="_blank" class="scroll button hero__button">Learn more</a>
+                    <button class="button button__accent ieuler-button">Go to ieuler</button>
+                    <!-- The Modal -->
+                    <div id="ieuler-modal" class="modal">
 
-						  <!-- Modal content -->
-						  <div class="modal-content">
-							  <span class="close">&times;</span>
-							  <form>
-								  <input type="text" placeholder="Project Euler username" id="project-euler-username" autocomplete="off">
-								  <input type="password" placeholder="Project Euler password" id="project-euler-password">
-								  <img src="" id="server-captcha"><img>
-								  <input type="text" placeholder="Please enter Captcha" id="project-euler-captcha" autocomplete="off">
-								  <button class="button button__accent" id="ieuler-button-args">Go to ieuler</button>
-							  </form>
-						  </div>
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <form>
+                                <p> Please enter your Project Euler Credentials.  Create an account <a target="_blank" class="link" href="https://projecteuler.net/register">here</a>.</p>
+                                <input type="text" placeholder="Project Euler username" id="project-euler-username"
+                                       autocomplete="off" required>
+                                <input type="password" placeholder="Project Euler password" id="project-euler-password" required>
+                                <img src="" id="server-captcha"><img>
+                                <input type="text" placeholder="Please enter Captcha" id="project-euler-captcha"
+                                       autocomplete="off" required>
+                                <button class="button button__accent" id="ieuler-button-args">Go to ieuler</button>
+                                <p id="error-message" style="display:none;"></p>
 
-						</div>
+                            </form>
+                        </div>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="hero__sub">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hero__sub">
 		<span id="scrollToNext" class="scroll">
-			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class='hero__sub__down' fill="currentColor" width="512px" height="512px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path d="M256,298.3L256,298.3L256,298.3l174.2-167.2c4.3-4.2,11.4-4.1,15.8,0.2l30.6,29.9c4.4,4.3,4.5,11.3,0.2,15.5L264.1,380.9c-2.2,2.2-5.2,3.2-8.1,3c-3,0.1-5.9-0.9-8.1-3L35.2,176.7c-4.3-4.2-4.2-11.2,0.2-15.5L66,131.3c4.4-4.3,11.5-4.4,15.8-0.2L256,298.3z"/></svg>
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                 y="0px" class='hero__sub__down' fill="currentColor" width="512px" height="512px" viewBox="0 0 512 512"
+                 style="enable-background:new 0 0 512 512;" xml:space="preserve"><path d="M256,298.3L256,298.3L256,298.3l174.2-167.2c4.3-4.2,11.4-4.1,15.8,0.2l30.6,29.9c4.4,4.3,4.5,11.3,0.2,15.5L264.1,380.9c-2.2,2.2-5.2,3.2-8.1,3c-3,0.1-5.9-0.9-8.1-3L35.2,176.7c-4.3-4.2-4.2-11.2,0.2-15.5L66,131.3c4.4-4.3,11.5-4.4,15.8-0.2L256,298.3z"/></svg>
 		</span>
-	</div>
-	<!-- Steps -->
-	<div class="steps landing__section">
-		<div class="container">
-			<h2>Solve interactively from the command line</h2>
-			<p>ieuler has the core components to enable an interactive workflow.</p>
-		</div>
-		<div class="container">
-			<div class="steps__inner">
+</div>
+<!-- Steps -->
+<div class="steps landing__section">
+    <div class="container">
+        <h2>Solve interactively from the command line</h2>
+        <p>ieuler has the core components to enable an interactive workflow.</p>
+    </div>
+    <div class="container">
+        <div class="steps__inner">
 
-				<div class="step">
-					<h4>$ilr fetch</h4>
-					<p class="text-container text-container--center">Fetch problems from Project Euler.</p>
-				</div>
-				<div class="step">
-					<h4>$ilr solve</h4>
-					<p class="text-container--center">Solve in a variety of languages.</p>
-				</div>
-				<div class="step">
-					<h4>$ilr submit</h4>
-					<p class="text-container--center">Submit your answer directly to Project Euler.</p>
-				</div>
-				<div class="step">
-					<h4>$ilr send</h4>
-					<p class="text-container--center">Send (save) your work to the server.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Expanded sections -->
-	<div class="expanded landing__section">
-		<div class="container">
-			<div class="expanded__inner">
-				<div class="expanded__media">
-					<img src="./images/ilr-fetch.png" width="600">
-				</div>
-				<div class="expanded__content">
-					<h2 class="expanded__title">$ ilr fetch</h2>
-					<p class="expanded__text">
-						Get current problems directly from Project Euler.  All of the problems are saved locally, and
-						if you have already logged into Project Euler via ieuler, so will the status of any problems
-						you have already solved.  This command will also get any work you have previously saved from
-						the server.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="expanded landing__section">
-		<div class="container">
-			<div class="expanded__inner">
-				<div class="expanded__media">
-					<img src="./images/ilr-solve.png" width="600">
-				</div>
-				<div class="expanded__content">
-					<h2 class="expanded__title">$ ilr solve</h2>
-					<p class="expanded__text">
-						Solve a problem using an autogenerated code template in a variety of languages.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="expanded landing__section">
-		<div class="container">
-			<div class="expanded__inner">
-				<div class="expanded__media">
-					<img src="./images/ilr-submit.png" width="600">
-				</div>
-				<div class="expanded__content">
-					<h2 class="expanded__title">$ ilr submit</h2>
-					<p class="expanded__text">
-						Submit a problem directly to Project Euler and get feedback instantly.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="expanded landing__section">
-		<div class="container">
-			<div class="expanded__inner">
-				<div class="expanded__media">
-					<img src="./images/ilr-send.png" width="600">
-				</div>
-				<div class="expanded__content">
-					<h2 class="expanded__title">$ ilr send</h2>
-					<p class="expanded__text">
-						Send (aka save) your work.  No need to specify which problem, only those which you have
-						worked on will be saved to the server.  The server is completely separate from Project Euler,
-						so it needs some information to tie you to your work: your username and the cookies the Project
-						Euler gives you once you login.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Call To Action -->
-	<div class="cta cta--reverse">
-		<div class="container">
-			<div class="cta__inner">
-				<h2 class="cta__title">Interested?</h2>
-				<p class="cta__sub cta__sub--center">See what it's like to use ieuler.</p>
-				<a target="_blank" class="button" href="https://github.com/liamcryan/ieuler">Download</a>
-				<a href="/app" class="button button__accent">Go to ieuler</a>
-			</div>
-		</div>
-	</div>
-	<!-- Footer -->
-	<div class="footer footer--dark">
-		<div class="container">
-			<div class="footer__inner">
-				<a href="/" class="footer__textLogo">ieuler</a>
-				<div class="footer__data">
-					<div class="footer__data__item"></div>
-					<div class="footer__data__item">
-						<div class="footer__row"> <a href="https://github.com/liamcryan/ieuler" target="_blank" class="footer__link">ieuler source code</a>
-						</div>
-						<div class="footer__row"> <a href="https://hub.docker.com/repository/docker/liamcryan/ieuler" target="_blank" class="footer__link">ieuler Docker image</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<script src='js/app.min.js'></script>
+            <div class="step">
+                <h4>$ilr fetch</h4>
+                <p class="text-container text-container--center">Fetch problems from Project Euler.</p>
+            </div>
+            <div class="step">
+                <h4>$ilr solve</h4>
+                <p class="text-container--center">Solve in a variety of languages.</p>
+            </div>
+            <div class="step">
+                <h4>$ilr submit</h4>
+                <p class="text-container--center">Submit your answer directly to Project Euler.</p>
+            </div>
+            <div class="step">
+                <h4>$ilr send</h4>
+                <p class="text-container--center">Send (save) your work to the server.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Expanded sections -->
+<div class="expanded landing__section">
+    <div class="container">
+        <div class="expanded__inner">
+            <div class="expanded__media">
+                <img src="{{ url_for('static', filename='images/ilr-fetch.png') }}" width="600">
+            </div>
+            <div class="expanded__content">
+                <h2 class="expanded__title">$ ilr fetch</h2>
+                <p class="expanded__text">
+                    Get current problems directly from Project Euler. All of the problems are saved locally, and
+                    if you have already logged into Project Euler via ieuler, so will the status of any problems
+                    you have already solved. This command will also get any work you have previously saved from
+                    the server.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="expanded landing__section">
+    <div class="container">
+        <div class="expanded__inner">
+            <div class="expanded__media">
+                <img src="{{ url_for('static', filename='images/ilr-solve.png') }}" width="600">
+            </div>
+            <div class="expanded__content">
+                <h2 class="expanded__title">$ ilr solve</h2>
+                <p class="expanded__text">
+                    Solve a problem using an autogenerated code template in a variety of languages.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="expanded landing__section">
+    <div class="container">
+        <div class="expanded__inner">
+            <div class="expanded__media">
+                <img src="{{ url_for('static', filename='images/ilr-submit.png') }}" width="600">
+            </div>
+            <div class="expanded__content">
+                <h2 class="expanded__title">$ ilr submit</h2>
+                <p class="expanded__text">
+                    Submit a problem directly to Project Euler and get feedback instantly.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="expanded landing__section">
+    <div class="container">
+        <div class="expanded__inner">
+            <div class="expanded__media">
+                <img src="{{ url_for('static', filename='images/ilr-send.png') }}" width="600">
+            </div>
+            <div class="expanded__content">
+                <h2 class="expanded__title">$ ilr send</h2>
+                <p class="expanded__text">
+                    Send (aka save) your work. No need to specify which problem, only those which you have
+                    worked on will be saved to the server. The server is completely separate from Project Euler,
+                    so it needs some information to tie you to your work: your username and the cookies the Project
+                    Euler gives you once you login.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Call To Action -->
+<div class="cta cta--reverse">
+    <div class="container">
+        <div class="cta__inner">
+            <h2 class="cta__title">Interested?</h2>
+            <p class="cta__sub cta__sub--center">See what it's like to use ieuler.</p>
+            <a target="_blank" class="button" href="https://github.com/liamcryan/ieuler">Download</a>
+            <button class="button button__accent ieuler-button">Go to ieuler</button>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<div class="footer footer--dark">
+    <div class="container">
+        <div class="footer__inner">
+            <a href="/" class="footer__textLogo">ieuler</a>
+            <div class="footer__data">
+                <div class="footer__data__item"></div>
+                <div class="footer__data__item">
+                    <div class="footer__row"><a href="https://github.com/liamcryan/ieuler" target="_blank"
+                                                class="footer__link">ieuler source code</a>
+                    </div>
+                    <div class="footer__row"><a href="https://hub.docker.com/repository/docker/liamcryan/ieuler"
+                                                target="_blank" class="footer__link">ieuler Docker image</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src='/static/evie/js/app.min.js'></script>
 <script>
 	// Get the modal
 	var modal = document.getElementById("ieuler-modal");
 
 	// Get the button that opens the modal
-	var btn = document.getElementById("ieuler-button");
+	var btns = document.getElementsByClassName("ieuler-button");
 
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 
 	// When the user clicks the button, open the modal
-	btn.onclick = function() {
-	  modal.style.display = "block";
-	}
+    for (var i = 0; i < btns.length; i ++) {
+    	btns[i].onclick = function() {
+          modal.style.display = "block";
+        }
+    }
+
 
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
@@ -274,42 +227,80 @@
 		modal.style.display = "none";
 	  }
 	}
+
 </script>
 <script>
-	var img = document.getElementById('server-captcha');
-	var oReq = new XMLHttpRequest();
 	var auth = '';
-	oReq.open("GET", "http://127.0.0.1:5000/captcha", true);
-	oReq.responseType = "blob";
-	oReq.onload = function(oEvent) {
-	img.src = URL.createObjectURL(this.response);
-	auth = this.getResponseHeader('Authorization');
-	};
-	oReq.send();
+	updateCaptcha()
+
+    function clearCaptchaInput(){
+        var captcha = document.getElementById('project-euler-captcha');
+        captcha.value = '';
+    }
+	function updateCaptcha(){
+		var img = document.getElementById('server-captcha');
+		var oReq = new XMLHttpRequest();
+
+        img.src = '';
+		oReq.open("GET", "/captcha", true);
+		oReq.responseType = "blob";
+		oReq.onload = function(oEvent) {
+			img.src = URL.createObjectURL(this.response);
+            auth = this.getResponseHeader('Authorization');
+		};
+		oReq.send();
+	}
+
+	function showErrorMessage(message){
+	    var e = document.getElementById('error-message');
+	    e.innerHTML = message + '<br>Try again';
+	    e.style.display = 'block';
+	    e.style.color = 'purple';
+	}
 
 	document.getElementById('ieuler-button-args').addEventListener('click', function(event){
-	  event.preventDefault();
 
-	  var username = document.getElementById('project-euler-username').value;
-	  var password = document.getElementById('project-euler-password').value;
-	  var captcha = document.getElementById('project-euler-captcha').value;
-	  var data = JSON.stringify({"username": username, "password": password, "captcha": captcha});
+	  var username = document.getElementById('project-euler-username');
+	  var password = document.getElementById('project-euler-password');
+	  var captcha = document.getElementById('project-euler-captcha');
+
+	  for (_ of [username, password, captcha]) {
+	    if (!_.checkValidity()){
+	      return;
+	    }
+	  }
+	  var data = JSON.stringify({"username": username.value, "password": password.value, "captcha": captcha.value});
 
 	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", "http://127.0.0.1:5000/login", true);
+	  xhr.open("POST", "/login", true);
 	  xhr.setRequestHeader("Content-Type", "application/json");
 	  xhr.setRequestHeader("Authorization", auth);
 	  xhr.onreadystatechange = function() {
 	  	if (xhr.readyState == 4) {
-	  	  // here you need to go to the ttyd url and pass parameters
-	  	  // -> username, password, these cookies, default-language
-	  	  //
-	  	  var cookies = JSON.parse(xhr.responseText);
-	  	  console.log(cookies);
+	  	    var response = JSON.parse(xhr.responseText);
+	  		if (xhr.status == 200){
+                location.assign('app' + '?arg=cookies' + JSON.stringify(response) + '&arg=credentials' + JSON.stringify({'username': username.value, 'password': 'null'}));
+
+	  		} else if (xhr.status == 401) {
+	  		    // bad credentials or captcha, inform the user.  clear password and captcha or just captcha.
+	  		    showErrorMessage(response);
+	  		    clearCaptchaInput();
+	  		    updateCaptcha();
+	  		} else if (xhr.status == 500) {
+	  		    // bad response from server - try again
+	  		    showErrorMessage(response);
+	  		    clearCaptchaInput();
+	  		    updateCaptcha();
+	  		}
+
 	  	}
 	  }
 	  xhr.send(data)
-	});
+      event.preventDefault();
+	}
+
+	);
+
 </script>
 
 </body>
