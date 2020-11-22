@@ -7,6 +7,8 @@ RUN apt-get update -y \
 RUN useradd -ms /bin/bash -d /usr/local/ttyd ttyd \
     && chown -R ttyd: /usr/local/ttyd
 
+COPY ./ttyd.sh /usr/local/ttyd/ttyd.sh
+
 WORKDIR /usr/local/ttyd
 
 USER ttyd
