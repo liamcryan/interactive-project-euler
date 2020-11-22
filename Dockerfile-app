@@ -1,14 +1,14 @@
-FROM tsl0922/ttyd
+FROM ubuntu
 
 RUN apt-get update -y \
     && apt-get upgrade -y \
-    && apt-get install docker.io -y
+    && apt-get install python3-pip -y \
+    && apt-get install git -y \
+    && pip3 install --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org git+https://github.com/liamcryan/ieuler flask gunicorn
 
-RUN useradd -ms /bin/bash -d /usr/local/ttyd ttyd \
-    && chown -R ttyd: /usr/local/ttyd
+RUN useradd -ms /bin/bash -d /usr/local/ipe ipe \
+    && chown -R ipe: /usr/local/ipe
 
-COPY ./ttyd.sh /usr/local/ttyd/ttyd.sh
+WORKDIR /usr/local/ipe
 
-WORKDIR /usr/local/ttyd
-
-USER ttyd
+USER ipe
