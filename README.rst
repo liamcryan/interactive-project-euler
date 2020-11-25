@@ -7,10 +7,6 @@ Use the Interactive Project Euler command line tool in a browser.
 Installation
 ------------
 
-should have liamcryan/ieuler image update automatically & restart - same with liamcryan/ieuler-server
-
-these instructions: https://certbot.eff.org/lets-encrypt/debianbuster-nginx
-
 First download & install necessary things on linux machine.  Check here for docker-compose download command: https://docs.docker.com/compose/install/ and replace below if necessary::
 
     $ sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install git curl docker.io -y
@@ -43,7 +39,7 @@ For https, follow certbot installation instructions, then eventually run::
 
 Now you need to verify that the NGINX_HOST is correct in this volumes to the .pem files.
 
-Finally, uncomment ssl related lines in nginx.conf.template.
+Finally, uncomment ssl related lines in nginx.conf.template.  Also comment listen on port 80 in second server directive.
 
 Then::
 
