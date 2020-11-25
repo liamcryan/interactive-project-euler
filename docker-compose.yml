@@ -56,9 +56,14 @@ services:
     restart: always
     image: nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      # - /path/in/host/fullchain.pem:/etc/nginx/fullchain.pem:ro
-      # - /path/in/host/privkey.pem:/etc/nginx/privkey.pem:ro
+      - ./nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - ./tmp:/var/tmp
+      - /etc/letsencrypt/live/www.{NGINX_HOST}/fullchain.pem:/etc/nginx/fullchain.pem:ro
+      - /etc/letsencrypt/live/www.{NGINX_HOST}/privkey.pem:/etc/nginx/privkey.pem:ro
     ports:
       - 80:80
       - 443:443
+    env_file:
+      - .nginx-env
+    environment:
+      NGINX_ENVSUBST_OUTPUT_DIR: "/etc/nginx"
